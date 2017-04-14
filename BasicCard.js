@@ -35,9 +35,9 @@ var Questions = [{
 inquirer.prompt(initial).then(function(answer) {
     //if user chooses create, prompt how flashcard quantity.
     if (answer.choices === 'Create') {
+        fs.unlinkSync("question.txt");
         inquirer.prompt(qty).then(function(answer) {
             var num = answer.Qty;
-            console.log(num);
             //based on the inputed qty, inquire the total text of the flashcard and the word that needs to be clozed;
             var askQuestions = function() {
                 if (count < num) {
@@ -61,7 +61,7 @@ inquirer.prompt(initial).then(function(answer) {
                                     correctAnswers++;
                                     console.log("Correct!");
                                     numb++;
-                                    
+
                                     renderQuestion();
                                 } else {
                                     // if user answer incorrect, increase incorrect answer by 1  
@@ -75,6 +75,9 @@ inquirer.prompt(initial).then(function(answer) {
                                 }
 
                             })
+                        } else {
+                            console.log("You got " + correctAnswers + " correct answers");
+                            console.log("and " + incorrectAnswers + " incorrect answers");
                         }
                     }
                     renderQuestion();
@@ -85,5 +88,39 @@ inquirer.prompt(initial).then(function(answer) {
         })
     } else {
         //run the useCard function.
+        clozeCard.savedClozedCards();
+        // var renderSaved = function() {
+        //     var savedAnswer = require("./ClozeCard.js").answerList;
+        //     var savedQuestion = require("./ClozeCard.js").questionList;
+        //     var num = savedQuestion.length;
+        //     console.log(savedAnswer);
+        //     console.log(savedQuestion);
+        //     console.log(num);
+        //     if (numb < num) {
+        //         inquirer.prompt(clozeCard.clozedQuestions[numb]).then(function(answer) {
+        //             //if user answer correct, increase correct answer by 1
+        //             if (answer.clozed === savedAnswer[numb]) {
+
+        //                 correctAnswers++;
+        //                 console.log("Correct!");
+        //                 numb++;
+
+        //                 renderSaved();
+        //             } else {
+        //                 // if user answer incorrect, increase incorrect answer by 1  
+
+        //                 incorrectAnswers++;
+        //                 console.log("Incorrect!, the Correct Answer is : " + savedQuestion[numb]);
+        //                 numb++;
+
+        //                 renderSaved();
+
+        //             }
+
+        //         })
+        //     }
+        // }
+        // renderSaved();
+
     }
 })
