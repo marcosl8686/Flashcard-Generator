@@ -9,6 +9,7 @@ var numb = 0;
 var inquirer = require('inquirer');
 var correctAnswers = 0;
 var incorrectAnswers = 0;
+var startApp = require("./BasicCard.js");
 
 function clozeCards() {
     for (var i = 0; i < questions.length; i++) {
